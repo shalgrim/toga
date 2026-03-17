@@ -488,6 +488,18 @@ async def test_change_invalid_creation_main_window():
         BadMainWindowApp(formal_name="Test App", app_id="org.example.test")
 
 
+async def test_presentation_mode_multiple_windows_all_in_presentation():
+    """All windows should be in presentation mode, not just the last one."""
+    app = toga.App(formal_name="Test App", app_id="org.example.test")
+    window1 = toga.Window()
+    window2 = toga.Window()
+
+    app.enter_presentation_mode([window1, window2])
+
+    assert window1.state == WindowState.PRESENTATION
+    assert window2.state == WindowState.PRESENTATION
+
+
 @pytest.mark.parametrize(
     "windows",
     [

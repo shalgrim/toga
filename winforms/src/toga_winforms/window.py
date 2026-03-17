@@ -306,14 +306,6 @@ class Window(Container, Scalable):
                 return WindowState.NORMAL
 
     def set_window_state(self, state):
-        # If the app is in presentation mode, but this window isn't, then exit app
-        # presentation mode before setting the requested state.
-        if any(
-            window.state == WindowState.PRESENTATION and window != self.interface
-            for window in self.interface.app.windows
-        ):
-            self.interface.app.exit_presentation_mode()
-
         current_state = self.get_window_state()
         if current_state == state:
             return

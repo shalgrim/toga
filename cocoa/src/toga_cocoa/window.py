@@ -414,14 +414,6 @@ class Window:
         if self._pending_state_transition:
             self._pending_state_transition = state
         else:
-            # If the app is in presentation mode, but this window isn't, then exit app
-            # presentation mode before setting the requested state.
-            if any(
-                window.state == WindowState.PRESENTATION and window != self.interface
-                for window in self.interface.app.windows
-            ):
-                self.interface.app.exit_presentation_mode()
-
             self._pending_state_transition = state
             if self.get_window_state() != WindowState.NORMAL:
                 self._apply_state(WindowState.NORMAL)

@@ -237,13 +237,6 @@ class Window:
             self._pending_state_transition = state
             return
 
-        # Exit app presentation mode if another window is in it
-        if any(
-            window.state == WindowState.PRESENTATION and window != self.interface
-            for window in self.interface.app.windows
-        ):
-            self.interface.app.exit_presentation_mode()
-
         if IS_WAYLAND:  # pragma: no-cover-if-linux-x  # pragma: no branch
             # Hold clearing _pending_state_transition by 100ms to ensure that
             # any window state changes in the meantime get batched.

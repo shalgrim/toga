@@ -601,7 +601,21 @@ class Window:
             )
         else:
             if self.state != state:
+                if self._should_exit_presentation_mode(state):
+                    self.app.exit_presentation_mode()
                 self._impl.set_window_state(state)
+
+    def _should_exit_presentation_mode(self, state: WindowState) -> bool:
+        """Check if presentation mode should be exited before changing state.
+
+        Returns True if another window is in presentation mode and we're
+        NOT entering presentation mode ourselves.
+        """
+        return state != WindowState.PRESENTATION and any(
+            window.state == WindowState.PRESENTATION
+            for window in self.app.windows
+            if window != self
+        )
 
     ######################################################################
     # Window capabilities

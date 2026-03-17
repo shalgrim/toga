@@ -890,7 +890,7 @@ class App:
             for screen, window in screen_window_dict.items():
                 window._impl._before_presentation_mode_screen = window.screen
                 window.screen = screen
-                window._impl.set_window_state(WindowState.PRESENTATION)
+                window.state = WindowState.PRESENTATION
 
     def exit_presentation_mode(self) -> None:
         """Exit presentation mode."""
